@@ -1,0 +1,4 @@
+{% load static %}
+<li {% if request.resolver_match.view_name  == 'posts:post_detail' %}class="list-group-item"{% endif %}>
+    Дата публикации: {{ post.pub_date|date:"d E Y" }}
+</li>

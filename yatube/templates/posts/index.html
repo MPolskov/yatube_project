@@ -1,27 +1,32 @@
 {% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock  %}
 {% block content %}
-  <div class="container py-5">     
-    <h2>{{ title }}</h2>
-    <br>
-    {% include 'includes/pagination.html' %}
-    {% for post in page_obj %}
-      <ul>
-        <li>
-          Автор: {{ post.author.get_full_name }}
-        </li>
-        <li>
-          Дата публикации: {{ post.pub_date|date:"d E Y" }}
-        </li>
-      </ul>
-      <p>{{ post.text }}</p>    
-      {% if post.group %}   
-        <a href="{% url 'posts:group_list' post.group.slug %}">
-          все записи группы
-        </a>
-      {% endif %}
-      {% if not forloop.last %}<hr>{% endif %}
-    {% endfor %}
-  </div>
-{% include 'includes/pagination.html' %}
-{% endblock %}  
+  <h2>{{ title }}</h2>
+  {% include 'posts/includes/switcher.html' %}
+  <br>
+  {% include 'posts/includes/paginator.html' %}
+  {% for post in page_obj %}
+  <div class=" shadow p-3 mb-5 bg-white rounded">
+    <div class="row">
+    <aside class="col-12 col-md-3">
+    <ul>
+      {% include 'posts/includes/author.html' %}
+      {% include 'posts/includes/pub_date.html' %}
+      {% include 'posts/includes/group.html' %}
+    </ul>
+    </aside>
+    <article class="col-12 col-md-9">
+    {% include 'posts/includes/image.html' %}
+    <p>{{ post.text }}</p> 
+    <p><a href="{% url 'posts:post_detail' post.pk %}">
+      подробная информация 
+  </a></p>
+</article>
+</div>
+</div>
+    {% comment %} {% if not forloop.last %}<hr>{% endif %} {% endcomment %}
+  {% endfor %}
+  {% include 'posts/includes/paginator.html' %}
+{% endblock %}
+
     

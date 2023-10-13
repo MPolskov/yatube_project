@@ -1,0 +1,13 @@
+{% load static %}
+{% if post.group %}   
+    <li 
+      {% if request.resolver_match.view_name  == 'posts:post_detail' %}
+        class="list-group-item"
+      {% endif %}
+      title="Все посты группы">
+        Группа:
+        <a href="{% url 'posts:group_list' post.group.slug %}">
+            {{ post.group }}
+        </a>
+    </li>
+{% endif %}

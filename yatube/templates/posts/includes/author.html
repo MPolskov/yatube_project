@@ -1,0 +1,11 @@
+{% load static %}
+<li {% if request.resolver_match.view_name  == 'posts:post_detail' %}class="list-group-item"{% endif %}>
+    Автор:
+      <a href="{% url 'posts:profile' post.author %}" title="Все посты пользователя">
+        {% if post.author.get_full_name != '' %}
+          {{ post.author.get_full_name }}
+        {% else %}
+          {{ post.author }}
+        {% endif %}
+      </a>
+</li>

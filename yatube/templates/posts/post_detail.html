@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock  %}
+{% block content %}
+<div class="row">
+<aside class="col-12 col-md-3">
+    <div class="shadow p-3 mb-5 bg-white rounded">
+    <ul class="list-group list-group-flush">
+        {% include 'posts/includes/pub_date.html' %}
+        {% include 'posts/includes/group.html' %}
+    {% if request.user == post.author %}
+      <li class="list-group-item">
+        <a href="{% url 'posts:post_edit' post.pk %}">
+          Редактировать пост
+        </a>
+      </li>
+    {% endif %}  
+      <hr> 
+      {% include 'posts/includes/author.html' %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Всего постов автора:  <span >{{ num_posts }}</span>
+      </li>
+    </ul>
+  </div>
+</aside>
+<article class="col-12 col-md-9 shadow p-3 mb-5 bg-white rounded">
+  {% comment %} <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="card-body"> {% endcomment %}
+      {% include 'posts/includes/image.html' %}
+      <p>
+      {{ post.text }}
+      </p>
+      <hr>
+      {% include 'posts/includes/comments.html' %}
+    {% comment %} </div>
+  </div> {% endcomment %}
+</article>
+</div>   
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Об авторе проекта{% endblock %}
+{% block content %}
+{% load static %}
+<div class="row">
+  <div class="col-12 col-md-3"> 
+    <img src="{% static 'img/author.jpeg' %}" class="rounded mx-auto d-block"> <!--img-fluid-->
+  </div>
+  <div class="col-12 col-md-9"> 
+    <h1 class="display-5">
+      <p>Привет!</p>
+      <p>Я Полшков Михаил</p>
+    </h1>
+  {% comment %} </div>
+  <div class="container py-3">  {% endcomment %}
+    <br>
+    <p>
+      Тут я размещу информацию о себе, используя свои умения верстать,
+      картинки, блоки, элементы бустрап.<br> А может быть, просто напишу несколько абзацев текста.
+    </p>
+    <p>
+      Мне {{ age }} лет. Юрист по образованию. 
+    </p>
+    <p>
+      Так как тема програмирования всегда была близка, решил обучится разработке.
+    </p>
+    <p>
+      После долгих размышлений, выбрал курс Python-разработчик. 
+    </p>
+    <p>
+      После обучения хочу найти работу по новой специальности.
+    </p>
+  </div>
+</div>
+{% endblock %}

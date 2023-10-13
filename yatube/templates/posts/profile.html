@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Профайл пользователя {{ author.get_full_name }}{% endblock %}
+{% block content %}
+<div class="mb-5">       
+  <h1>Все посты пользователя {{ author.get_full_name }} </h1>
+  <h3>Всего постов: {{ num_posts }} </h3>
+  {% include 'posts/includes/follow_button.html' %}
+</div>  
+<article>
+  {% for post in page_obj %}
+  <div class=" shadow p-3 mb-5 bg-white rounded">
+    <div class="row">
+    <aside class="col-12 col-md-3">
+  <ul>
+    {% include 'posts/includes/author.html' %}
+    {% include 'posts/includes/pub_date.html' %}
+    {% include 'posts/includes/group.html' %} 
+  </ul>
+</aside>
+<article class="col-12 col-md-9">
+  {% include 'posts/includes/image.html' %}
+  <p>{{ post.text }}</p> 
+    <p><a href="{% url 'posts:post_detail' post.pk %}">
+        подробная информация 
+    </a></p>
+  </article>
+</div>
+</div>
+</article>     
+{% if not forloop.last %}<hr>{% endif %}
+{% endfor %}
+
+{% include 'posts/includes/paginator.html' %} 
+{% endblock %}

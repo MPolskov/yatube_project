@@ -1,21 +1,31 @@
 {% extends 'base.html' %}
-{% block content %}
-  <div class="container py-5">     
-    <h2>Записи сообщества {{ title }}</h2>
-    <br>
-    {% for post in posts %}
-      {% if group == post.group %}
-        <ul>
-          <li>
-            Автор: {{ post.author.get_full_name }}
-          </li>
-          <li>
-            Дата публикации: {{ post.pub_date|date:"d E Y" }}
-          </li>
-        </ul>
-        <p>{{ post.text }}</p>
-        {% if not forloop.last %}<hr>{% endif %}
-      {% endif %}
-    {% endfor %}
-  </div> 
+{% block title %}{{ title }}{% endblock  %}
+{% block content %}    
+  <h1>{{ title }}</h1>
+  <p>{{ group.description }}</p>
+  <br>
+  {% include 'posts/includes/paginator.html' %}
+  {% for post in page_obj %}
+  <div class=" shadow p-3 mb-5 bg-white rounded">
+    <div class="row">
+    <aside class="col-12 col-md-3">
+    {% if group == post.group %}
+      <ul>
+        {% include 'posts/includes/author.html' %}
+        {% include 'posts/includes/pub_date.html' %}
+      </ul>
+    </aside>
+    <article class="col-12 col-md-9">
+      {% include 'posts/includes/image.html' %}
+      <p>{{ post.text }}</p>
+      <p><a href="{% url 'posts:post_detail' post.pk %}">
+        подробная информация 
+          </a></p>
+        </article>
+      </div>
+      </div>
+      {% comment %} {% if not forloop.last %}<hr>{% endif %} {% endcomment %}
+    {% endif %}
+  {% endfor %}
+  {% include 'posts/includes/paginator.html' %}
 {% endblock %}
